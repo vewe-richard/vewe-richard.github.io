@@ -1,1 +1,0 @@
-# vewe-richard.github.io
