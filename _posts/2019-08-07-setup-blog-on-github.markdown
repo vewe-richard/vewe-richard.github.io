@@ -4,22 +4,36 @@ title:  "Setup Blog on Github"
 date:   2019-08-07 18:09:17 +0800
 categories: jekyll update
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+Quick start
+===== 
+  1. Follow [Quick Start][quick-start] of Jekyll to create a blog template.
+  1. Commit your site to github
 
-Jekyll also offers powerful support for code snippets:
+      Github reserve repository name **username.github.io** for user to publish a static website.
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+  * Create a new repository with name as **username.github.io**, for example my website repository is [vewe-richard.github.io][vewe-richard-repository].
+  * Add all files of your site to this repository.
+  * Preview your blog by --- `http://username.github.io`
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+[quick-start]: https://jekyllrb.com/docs/
+[vewe-richard-repository]:https://github.com/vewe-richard/vewe-richard.github.io
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+Maintain your blog
+===== 
+to maintain your blog, you need learning more about Jekyll, markdown
+
+  * [Tutorial Jekyll](https://jekyllrb.com/docs/step-by-step/01-setup/)
+  * [Markdown Quick Reference](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
+some maintain skills
+  * preview the blog on local host
+Run `jekyll serve` and go to `http://localhost:4000` in your browser.
+
+
+Reference
+===== 
+  * [Creating and Hosting a Personal Site on GitHub](http://jmcglone.com/guides/github-pages/)
+
+
+
