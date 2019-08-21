@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Setup Blog on Github"
-date:   2019-08-07 18:09:17 +0800
 categories: jekyll update
 ---
 
@@ -35,6 +34,9 @@ maintain steps
   * Under your website directory, run `bundle exec jekyll serve`
   * preview the blog on local host `http://localhost:4000`
   * run `bundle exec jekyll build` when you change any template
+
+some tips
+  * jekyll only generate html for markdown file under the first level directory, for example /inner, /images. check this under temporary directory ./_site/
 
 
 Reference
