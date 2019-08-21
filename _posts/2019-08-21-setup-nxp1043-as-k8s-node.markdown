@@ -11,8 +11,11 @@ This post tell how to setup NXP LS1043A as a Kubernetes node, and how to fix som
 
 This setup need two PCs or VMs, one as Kubernetes master, one as node. Also, one NXP LS1043 box is needed to be another node.
 
-![overview1](./images/nxp1043ask8snode-model.png)
+![overview1](https://raw.githubusercontent.com/vewe-richard/vewe-richard.github.io/master/_posts/images/nxp1043ask8snode-model.png)
 
+And this setup will deploy a kubernetes service associated with two kubernetes pods, each has one container. Like below.
+
+![architecture](https://raw.githubusercontent.com/vewe-richard/vewe-richard.github.io/master/_posts/images/nxp1043ask8snode-architecture.png)
 
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
