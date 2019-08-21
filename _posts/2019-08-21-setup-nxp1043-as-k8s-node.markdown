@@ -1,9 +1,19 @@
 ---
 layout: post
-title:  "Setup NXP1043 As k8s Node"
-date:   2019-08-21 17:44:17 +0800
+title:  "Setup NXP LS1043A as a Kubernetes Node"
+date:   2019-08-07 17:44:17 +0800
 categories: jekyll update
 ---
+
+This post tell how to setup NXP LS1043A as a Kubernetes node, and how to fix some issues during the process.
+
+# Overview
+
+This setup need two PCs or VMs, one as Kubernetes master, one as node. Also, one NXP LS1043 box is needed to be another node.
+
+![overview1](./images/nxp1043ask8snode-model.png)
+
+
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
 To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
