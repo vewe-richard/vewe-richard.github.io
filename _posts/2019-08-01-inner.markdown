@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Inner Use"
+title:  "BLANK"
 categories: jekyll update
 ---
 
