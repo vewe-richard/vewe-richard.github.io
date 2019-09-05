@@ -1,18 +1,24 @@
 ---
 layout: post
-title:  "Edge Computing Networking Consideration"
+title:  "Thinking on Edge Computing Networking"
 categories: jekyll update
 ---
 
-Networking is a very important aspect on considering Edge Computing, How the edge devices are connected? How the edge devices are connected to centric cloud.
+Networking is a very important aspect when considering on Edge Computing, How the edge devices are connected? How the edge devices are connected to centric cloud.
 
-Kubernetes is the most popular architecture used in Edge Computing field, this post talks about the networking of Edge Computing in such architecture.
+Kubernetes is the most popular architecture used in Edge Computing field, this post takes this architecture as example to illustrate networking in Edge Computing.
 
-Before dive into discussion, Let's first look at an example to demonstrate the networking simulating edge computing.
+![architecture](/images/flannel/overview.png)
 
-# An Example
+Pod is one of resource in Kubernetes, it is a group of containers which share network namespace.
 
-This example simulates connections on edge computing environment. 
+# Connection between pods
+
+How about the connection between pods, to illustrate it, here setup an environment for validation. 
+In this example, Flannel is selected as networking plugin, all pods are in address range 10.217.0.0/16.  
+The setup progress of this test can be found on Appendix A.
+
+![architecture](/images/flannel/flannel.png)
 
 The upper part is just like the centric cloud, where Kubernetes Master, and centric nodes located.
 
@@ -20,13 +26,9 @@ The lower part is just like the edge devices group.
 
 In such connections, the edge devices are hidden behind the router in NAT, the edge devices can access centric nodes directly, but not vise verse.
 
-In this example, the networking plugin is Flannel, all pods are in address range 10.217.0.0/16.
-
-![architecture](/images/flannel/flannel.png)
-
 Below list the test result of connections from pod1.a to other pods and internet.
 
-pod1.a, ip is 10.217.4.3, in edge device worker1 (192.168.22.53), from pod1.a to
+`pod1.a`, ip is 10.217.4.3, in edge device worker1 (192.168.22.53), from pod1.a to
 * to pod2.a (10.217.3.18) in worker2 (192.168.22.54)  
   `Reachable`  
   pod1.a is connected to pod2.a through vxlan tunnel  
@@ -43,12 +45,30 @@ pod1.a, ip is 10.217.4.3, in edge device worker1 (192.168.22.53), from pod1.a to
   Need set the host to NAT  
   `iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE`
   
+# Connect through services
+
+Follow previous example, add services to each pods and check the connections between them again.
+
+![architecture](/images/flannel/service.png)
+
+Connection to service is through iptables, not through vxlan tunnel, so it is a little different.
+
+Take `service1` as example, from service1 to
+* service2  
+  `Reachable`
+* servicex  
+  `Reachable`
+
+See Appendix B for the setup progress.
+
 
 # Thinking on Edge Computing Networking 
 Refer to previous example, we can see,
 * Pods in edge devices can access each other only when their hosts can access each other directly, normally in the same region.
 
-* Pods in edge devices can not access pods in centric nodes in normal way, to access pods in centric nodes, the option way is through public ip, and port mapping between pods and their host.
+* Pods in edge devices can not access pods in centric nodes in tunnel mode, the option way is through public ip, or kubernetes service.
+
+* Access to services is not through tunnel, it's more like the normal way. Only services associated with pods which host has public ip are available.
 
 
 # Appendix
@@ -117,3 +137,115 @@ spec:
               - containerPort: 80
 
 ```
+### B. steps to setup services example
+```
+richard@kubernetes-master:~/k8s/books$ cat services-test.yaml 
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dpy-worker1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pod-worker1
+    spec:
+        nodeSelector:
+          kubernetes.io/hostname: kubernetes-worker1
+        containers:
+          - name: cnt-worker1
+            image: jiangjqian/edgegw
+            ports:
+              - containerPort: 80
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dpy-worker2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pod-worker2
+    spec:
+        nodeSelector:
+          kubernetes.io/hostname: kubernetes-worker2
+        containers:
+          - name: cnt-worker2
+            image: jiangjqian/edgegw
+            ports:
+              - containerPort: 80
+
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dpy-node1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pod-node1
+    spec:
+        nodeSelector:
+          kubernetes.io/hostname: node1
+        containers:
+          - name: cnt-worker1
+            image: jiangjqian/edgegw
+            ports:
+              - containerPort: 80
+
+
+
+---                                          
+apiVersion: v1
+kind: Service
+metadata:
+        name: service-worker1
+spec:
+        selector:
+                app: pod-worker1
+        ports:
+              - protocol: TCP
+                port: 1701
+                targetPort: 80
+
+
+---                                          
+apiVersion: v1
+kind: Service
+metadata:
+        name: service-worker2
+spec:
+        selector:
+                app: pod-worker2
+        ports:
+              - protocol: TCP
+                port: 1702
+                targetPort: 80
+
+
+---                                          
+apiVersion: v1
+kind: Service
+metadata:
+        name: service-node1
+spec:
+        selector:
+                app: pod-node1
+        ports:
+              - protocol: TCP
+                port: 1801
+                targetPort: 80
+
+
+```
+
+
+
