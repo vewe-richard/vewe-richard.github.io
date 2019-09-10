@@ -63,7 +63,7 @@ kind: ServiceAccount
 metadata:
   name: admin-user
   namespace: kube-system
-EOF
+hit Ctrl-D to stop
 ```
 
 ```
@@ -80,7 +80,7 @@ subjects:
 - kind: ServiceAccount
   name: admin-user
   namespace: kube-system
-EOF
+hit Ctrl-D to stop
 ```
 
 #### 4. Run kubectl proxy (in 192.168.22.55)
