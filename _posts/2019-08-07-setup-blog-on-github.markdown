@@ -29,8 +29,8 @@ to maintain your blog, you need learning more about Jekyll, markdown
 
 maintain steps
   * Install Jekyll, for example, [install Jekyll on Ubuntu](https://jekyllrb.com/docs/installation/ubuntu/)
-  * run `bundle install` to install missing gems.
   * Clone your website from github
+  * run `bundle install` to install missing gems.
   * Under your website directory, run `bundle exec jekyll serve`
   * preview the blog on local host `http://localhost:4000`
   * run `bundle exec jekyll build` when you change any template
