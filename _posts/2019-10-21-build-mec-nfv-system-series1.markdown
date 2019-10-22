@@ -31,12 +31,12 @@ Note: for each hosts, 4 cpus and 4G memory are minimal requirements.
 
 ### Install kubernetes (Layer Hosts)
 You need install a kubernetes master one one host, and kubernetes node on other hosts.
-  * [Follow this link to install kubernetes](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) TODO
+  * [Follow this link to install kubernetes](https://linuxconfig.org/how-to-install-kubernetes-on-ubuntu-18-04-bionic-beaver-linux) TODO
 
 
 ### Install Openstack (Layer Openstack)
 You need choose one kubernetes node to install openstack controller, and other kubernetes nodes to install openstack compute.
-  * [Follow this link to install openstack](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) TODO
+  * [Follow this link to install openstack](https://docs.openstack.org/install-guide/environment.html) TODO
 
 
 ### Customize openstack services as kubernetes services (TODO)
