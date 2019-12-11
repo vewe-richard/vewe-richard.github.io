@@ -123,7 +123,9 @@ We put the sd-wan devices here,
 
 
 
-
+# Appendix
+## A. SD-WAN Requirements
+  * Need support SFP Port, and at least 4 SFP Ports
 
 
 
